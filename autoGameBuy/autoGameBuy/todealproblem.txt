@@ -1,0 +1,46 @@
+ 1. 当在登录的时候输入验证码错误的情况的处理方式： 是重新登录了还是再次输入验证码了？？？？？？
+ 2. 在登录成功以后，在处理订单的网页里面的username的来源： 1. 通过session或是通过使用全局变量 ？？？？？？
+ 3. 经过流程测试，当最后支付失败的时候，或是余额不足的时候，需要关掉提醒页面，然后页面定格在findProduct的最后一步，然后重新执行一次流程，但是本次流程和第一次的流程有点不同之处，所以，这个流程需要重新写  (已解决)
+ 4.设计一个数据表：用来保存订单信息，表中字段是：
+    订单号          产品信息          订单归属者   下订单时间   订单完成时间    订单购买状态         备注信息
+    ordernumber     productinfor        buyer       starttime    finishtime     orderstatus          backupinfo
+
+    ordernumber: 订单号， 唯一键:不能为空
+    productinfor： 产品信息： 不能为空
+    buyer： 订单归属者： 不能为空
+    starttime： 下订单时间：开始购买时间:不能为空 ：
+    finishtime： 订单完成时间：本次购买完成时间:不能为空：最开始默认为starttime
+    orderstatus： 订单购买状态：成功或是失败或是购买中 :不能为空
+    backupinfo：  备注信息：  成功的话为成功，失败的话：说明失败原因 ：不能为空
+
+
+5. 设计一个表：用来保存支付账户信息, 表中字段
+    paymentaccount        paymentpassword      safecode
+    paymentaccount: 支付的账户信息
+    paymentpassword： 支付密码
+    safecode：   需要输入的安全代码
+
+6. 待完成内容： 1分钟反馈登录是否成功，这个暂时没有必要，以为整个过程要不了1分钟
+                5分钟发送一封邮件报告购买的情况，这个暂时没有实现， 可以通过一个检测程序走数据库实现的
+
+
+7. 整个购买流程没有完成的地方是： autoBuy.py 的1010行的输入 安全代码的地方
+
+
+8. 数据库的创建：暂时规划三张表：  1.订单信息表 orderInfor    2.后台权限管理表 pemissonAccountInfo    3.支付账户信息表 ：payAccountInfo
+orderinfors:
+    ordernumber
+    productinfor
+    buyer
+    starttime
+    finishtime
+    orderstatus
+    backupinfo
+pemissonaccount:
+    username: 账号
+    password: 密码
+
+payAccountInfo：
+    account: 账号
+    password:密码
+    safecode:安全码
